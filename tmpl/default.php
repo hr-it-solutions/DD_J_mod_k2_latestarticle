@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('stylesheet', 'mod_dd_k2_latestarticle/k2_latestarticle.css', array('version' => 'auto', 'relative' => true));
+JHtml::_('stylesheet', 'mod_dd_k2_latestarticle/dd_k2_latestarticle.css', array('version' => 'auto', 'relative' => true));
 
 $articles = new Mod_K2_LatestArticle_Helper;
 
