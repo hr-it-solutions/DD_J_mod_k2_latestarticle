@@ -1,3 +1,5 @@
+[![DDSTATE](https://img.shields.io/badge/status-ALPHA-red.svg?style=flat)](https://img.shields.io/badge/status-ALPHA-red.svg?style=flat)
+
 # DD_J_mod_k2_latestarticle
 A Joomla! module to display latest com_K2 articles
 
