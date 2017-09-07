@@ -12,7 +12,6 @@
     <files>
         <filename module="mod_dd_k2_latestarticle">mod_dd_k2_latestarticle.php</filename>
         <filename>helper.php</filename>
-        <folder>countries</folder>
         <folder>tmpl</folder>
     </files>
     <config>
