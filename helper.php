@@ -18,6 +18,8 @@ class Mod_K2_LatestArticle_Helper
 {
 	protected $app;
 
+	protected $db;
+
 	protected $params;
 
 	/**
@@ -29,50 +31,62 @@ class Mod_K2_LatestArticle_Helper
 	 */
 	public function getLatestArticles()
 	{
-		$module = JModuleHelper::getModule('mod_k2_latestarticle');
-		$params = new JRegistry($module->params);
+		$this->app = JFactory::getApplication();
+		$this->db = JFactory::getDbo();
 
-		$db = JFactory::getDbo();
+		$module = JModuleHelper::getModule('mod_dd_k2_latestarticle');
+		$this->params = new JRegistry($module->params);
 
-		$query = $db->getQuery(true);
+		$query = $this->db->getQuery(true);
 
-		$select = $db->qn(
+		$select = $this->db->qn(
 			array(
 				'a.id',
 				'a.id',
-				'a.introtext',
-				'a.extra_fields'
+				'a.title'
 			)
 		);
 
 		$query->select($select)
-			->from($db->qn('#__k2_items', 'a'));
+			->from($this->db->qn('#__k2_items', 'a'));
 
-		if ($params->get('associated_article_mode') === '1')
+		$query->where($this->db->qn('a.published') . ' = 1');
+
+		if ($this->params->get('associated_article_mode') === '1')
 		{
-			$query = $this->associatedArticleModeQuery($query, $db);
+			if ($this->getAssociatedItem() !== false)
+			{
+				// Exclude active article id
+				$query->where(
+					$this->db->qn('a.id') . ' <> ' .
+					(int) $this->getAssociatedItem()['inputID']
+				);
+
+				// Only associated category articles
+				$query->where(
+					$this->db->qn('a.catid') . ' = ' .
+					(int) $this->getAssociatedItem()['catID']
+				);
+			};
 		}
 
 		$query->order('a.id DESC LIMIT 0, 3');
 
 		// Set this query using query object
-		$db->setQuery($query);
+		$this->db->setQuery($query);
 
 		// Return Object List
-		return $db->loadObjectList();
+		return $this->db->loadObjectList();
 	}
 
 	/**
-	 * associatedArticleModeQuery
-	 *
-	 * @param   object  &$db    JDatabaseObject
-	 * @param   object  $query  query
+	 * getAssociatedItem
 	 *
 	 * @since  Version 1.0.0.0
 	 *
 	 * @return mixed
 	 */
-	private function associatedArticleModeQuery(&$db, $query)
+	private function getAssociatedItem()
 	{
 		if ($this->app->input->getCmd('option') === 'com_k2')
 		{
@@ -80,22 +94,22 @@ class Mod_K2_LatestArticle_Helper
 			{
 				$inputId = (int) $this->app->input->getCmd('id');
 
-				// Create a new query object as thisQuery
-				$thisQuery = $db->getQuery(true);
+				// Create a new query object
+				$query = $this->db->getQuery(true);
 
-				$thisQuery->select($db->qn('catid'))->from($db->qn('#__k2_items'))->where($db->qn('id') . '=' . $inputId);
-				$db->setQuery($thisQuery);
+				$query->select($this->db->qn('catid'))
+					->from($this->db->qn('#__k2_items'))
+					->where($this->db->qn('id') . '=' . $inputId);
 
-				$assicatedCatID = $db->loadResult();
+				$this->db->setQuery($query);
 
-				// Exclude active article id
-				$query->where($db->qn('a.id') . ' <> ' . (int) $inputId);
-
-				// Only associated category articles
-				$query->where($db->qn('a.catid') . ' = ' . (int) $assicatedCatID);
+				return array(
+					'catID' => $this->db->loadResult(),
+					'inputID' => $inputId
+				);
 			}
 		}
 
-		return $query;
+		return false;
 	}
 }
