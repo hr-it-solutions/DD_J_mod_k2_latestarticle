@@ -19,7 +19,7 @@ $items = $articles->getLatestArticles();
 	<?php if ($params->get('associated_article_mode')): ?>
         <div class="row-fluid">
             <div class="span12">
-                <a href="<?php JRoute::_('index.php?option=com_k2&view=itemlist&layout=category&task=category&id=3'); ?>">
+                <a href="<?php echo JRoute::_('index.php?option=com_k2&view=itemlist&layout=category&task=category&id=3'); ?>">
 					<?php echo JText::_('MOD_DD_K2_LATESTARTICLE_ASSOCIATED_ACTIVE_MODE_BACKTOKATEGORY'); ?>
                 </a>
             </div>
@@ -28,11 +28,11 @@ $items = $articles->getLatestArticles();
     <div class="row-fluid">
 		<?php foreach ($items as $item): ?>
             <div class="span4">
-                <a href="<?php JRoute::_('index.php?option=com_k2&view=item&layout=item&id=' . $item->id); ?>">
+                <a href="<?php echo JRoute::_('index.php?option=com_k2&view=item&layout=item&id=' . $item->id); ?>">
                     <img alt="<?php echo $item->title; ?>"
                          src="<?php echo "media/k2/items/cache/" . md5("Image" . $item->id) . "_L.jpg"; ?>"
                 </a>
-                <a href="<?php JRoute::_('index.php?option=com_k2&view=item&layout=item&id=' . $item->id); ?>">
+                <a href="<?php echo JRoute::_('index.php?option=com_k2&view=item&layout=item&id=' . $item->id); ?>">
                     <h5><?php echo $item->title; ?></h5>
                 </a>
             </div>
