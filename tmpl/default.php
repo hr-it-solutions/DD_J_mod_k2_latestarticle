@@ -19,7 +19,7 @@ $items = $articles->getLatestArticles();
 	<?php if ($params->get('associated_article_mode')): ?>
         <div class="row-fluid">
             <div class="span12">
-                <a href="<?php echo JRoute::_('index.php?option=com_k2&view=itemlist&layout=category&task=category&id=3'); ?>">
+                <a href="<?php echo JRoute::_('index.php?option=com_k2&view=itemlist&layout=category&task=category&id=' . $items->catid); ?>">
 					<?php echo JText::_('MOD_DD_K2_LATESTARTICLE_ASSOCIATED_ACTIVE_MODE_BACKTOKATEGORY'); ?>
                 </a>
             </div>

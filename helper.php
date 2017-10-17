@@ -42,7 +42,7 @@ class Mod_K2_LatestArticle_Helper
 		$select = $this->db->qn(
 			array(
 				'a.id',
-				'a.id',
+				'a.catid',
 				'a.title'
 			)
 		);
