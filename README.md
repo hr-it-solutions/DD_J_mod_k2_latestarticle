@@ -1,7 +1,12 @@
 [![DDSTATE](https://img.shields.io/badge/status-ALPHA-red.svg?style=flat)](https://img.shields.io/badge/status-ALPHA-red.svg?style=flat)
 
 # DD_J_mod_k2_latestarticle
-A Joomla! module to display latest com_K2 articles
+A Joomla! module to display latest com_K2 articles from the same category based on active itemID.
+And excluded the current active itemID Article.
+
+The module just loads latest articles, if it is displayed together with an arcicle.
+
+    option=com_k2&view=item
 
 [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=102)](https://opensource.org/licenses/GPL-2.0/)
 
