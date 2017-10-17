@@ -14,8 +14,6 @@ The module just loads latest articles, if it is displayed together with an arcic
 
     option=com_k2&view=item
 
-[![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=102)](https://opensource.org/licenses/GPL-2.0/)
-
 # System requirements
 Joomla 3.7 +                                                                                <br>
 PHP 5.6.13 or newer is recommended.
